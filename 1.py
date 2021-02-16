@@ -1,8 +1,3 @@
-# Пользователь печатает в командной строке запрос,
-# а наша задача состоит в том, чтобы найти координаты запрошенного объекта
-# и показать его на карте, выбрав соответствующий масштаб и позицию карты
-
-import pygame
 import sys
 
 import pygame
@@ -108,14 +103,15 @@ def main():
                 spn_list = list(map(float, spn[1].split(',')))
 
                 coords = [float(i) for i in coords]
+                a = 0.15
                 if event.key == pygame.K_DOWN:
-                    coords[1] -= 0.001
+                    coords[1] -= spn_list[1] * a
                 elif event.key == pygame.K_UP:
-                    coords[1] += 0.001
+                    coords[1] += spn_list[1] * a
                 elif event.key == pygame.K_RIGHT:
-                    coords[0] += 0.001
+                    coords[0] += spn_list[0] * a
                 elif event.key == pygame.K_LEFT:
-                    coords[0] -= 0.001
+                    coords[0] -= spn_list[0] * a
                 elif event.key == pygame.K_q:
                     vid += 1
                     vid = vid % 3
@@ -131,7 +127,7 @@ def main():
                     spn_list[0] = spn_list[0] / 2
                     spn_list[1] = spn_list[1] / 2
                 coords = [str(i) for i in coords]
-                spn = [spn[0], ','.join(list(map(str, spn_list)))]
+                spn = [','.join(list(map(str, coords))), ','.join(list(map(str, spn_list)))]
                 ll_spn = f"ll={coords[0]},{coords[1]}&spn={spn[1]}"
                 if vid == 0:
                     show_map(ll_spn, "map")
