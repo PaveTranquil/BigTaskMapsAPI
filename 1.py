@@ -6,6 +6,7 @@ import pygame
 import sys
 import os
 import requests
+import pygame.image, pygame.display, pygame.transform
 
 # Пусть наше приложение предполагает запуск в командной строке:
 # python search_req.py Москва, ул. Ак. Королева, 12
@@ -13,6 +14,7 @@ import requests
 # http://geocode-maps.yandex.ru/1.x/?apikey=40d1649f-0493-4b70-98ba-98533de7710b&geocode=Москва, ул. Ак. Королева, 12&format=json
 
 API_KEY = '40d1649f-0493-4b70-98ba-98533de7710b'
+size = (600, 450)
 pygame.init()
 
 
@@ -96,7 +98,7 @@ def show_map(ll_spn=None, map_type="map", add_params=None):
         sys.exit(2)
 
     # Рисуем картинку, загружаемую из только что созданного файла.
-    screen.blit(pygame.image.load(map_file), (0, 0))
+    screen.blit(pygame.transform.scale(pygame.image.load(map_file), size), (0, 0))
     # Переключаем экран и ждем закрытия окна.
     pygame.display.flip()
 
@@ -132,5 +134,5 @@ def main():
 
 
 if __name__ == "__main__":
-    screen = pygame.display.set_mode((600, 450))
+    screen = pygame.display.set_mode(size)
     main()
