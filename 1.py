@@ -114,20 +114,27 @@ def main():
         print(ll_spn)
         show_map(ll_spn, "map")
     while True:
+
         for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
             if event.type == pygame.KEYDOWN:
+                coords = [float(i) for i in spn[0].split(",")]
+                print("CCCCCCCC", coords)
                 if event.key == pygame.K_DOWN:
-                    spn[0] -= 1
+                    coords[0] -= 1
                 elif event.key == pygame.K_UP:
-                    spn[1] += 1
+                    coords[0] += 1
                 elif event.key == pygame.K_RIGHT:
-                    spn[0] -= 1
+                    coords[1] -= 1
                 elif event.key == pygame.K_LEFT:
-                    spn[1] += 1
+                    coords[1] += 1
+                print("ггггггггг", coords)
+                coords = [str(i) for i in spn[0].split(",")]
+                spn = (coords[0] + "," + coords[1], spn[1])
                 ll_spn = f"ll={spn[0]}&spn={spn[1]}"
                 show_map(ll_spn, "map")
-                print("ADSAS")
-    os.remove(map_file)
 
 
 if __name__ == "__main__":
