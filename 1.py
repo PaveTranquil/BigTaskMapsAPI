@@ -114,7 +114,6 @@ def main():
         print(ll_spn)
         show_map(ll_spn, "map")
     while True:
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -135,6 +134,8 @@ def main():
                 spn = (coords[0] + "," + coords[1], spn[1])
                 ll_spn = f"ll={spn[0]}&spn={spn[1]}"
                 show_map(ll_spn, "map")
+                print("ADSAS")
+    os.remove(map_file)
 
 
 if __name__ == "__main__":
