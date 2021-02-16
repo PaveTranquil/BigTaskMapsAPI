@@ -88,9 +88,9 @@ def main():
         lat, lon = get_coordinates(toponym_to_find)
         spn = get_ll_span(toponym_to_find)
         ll_spn = f"ll={spn[0]}&spn={spn[1]}"
-        print(ll_spn)
         show_map(ll_spn, "map")
         coords = [float(i) for i in spn[0].split(",")]
+    metka = False
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -98,10 +98,8 @@ def main():
                 exit()
             if event.type == pygame.KEYDOWN:
                 coords = [float(i) for i in spn[0].split(",")]
-                print(str(coords[0]))
                 spn = (str(coords[0]) + "," + str(coords[1]), spn[1])
                 spn_list = list(map(float, spn[1].split(',')))
-
                 coords = [float(i) for i in coords]
                 a = 0.15
                 if event.key == pygame.K_DOWN:
@@ -130,6 +128,7 @@ def main():
                 coords = [str(i) for i in coords]
                 spn = [','.join(list(map(str, coords))), ','.join(list(map(str, spn_list)))]
                 ll_spn = f"ll={coords[0]},{coords[1]}&spn={spn[1]}"
+
                 if vid == 0:
                     show_map(ll_spn, "map", metka)
                 if vid == 1:
