@@ -13,6 +13,7 @@ import requests
 # http://geocode-maps.yandex.ru/1.x/?apikey=40d1649f-0493-4b70-98ba-98533de7710b&geocode=Москва, ул. Ак. Королева, 12&format=json
 
 API_KEY = '40d1649f-0493-4b70-98ba-98533de7710b'
+pygame.init()
 
 
 # Функция сборки запроса для геокодера
@@ -94,9 +95,6 @@ def show_map(ll_spn=None, map_type="map", add_params=None):
         print("Ошибка записи временного файла:", ex)
         sys.exit(2)
 
-    # Инициализируем pygame
-    pygame.init()
-    screen = pygame.display.set_mode((600, 450))
     # Рисуем картинку, загружаемую из только что созданного файла.
     screen.blit(pygame.image.load(map_file), (0, 0))
     # Переключаем экран и ждем закрытия окна.
@@ -115,6 +113,9 @@ def main():
         show_map(ll_spn, "map")
     while True:
         for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_DOWN:
                     spn[0] -= 1
@@ -131,4 +132,5 @@ def main():
 
 
 if __name__ == "__main__":
+    screen = pygame.display.set_mode((600, 450))
     main()
