@@ -135,7 +135,6 @@ def main():
                 ll_spn = f"ll={spn[0]}&spn={spn[1]}"
                 show_map(ll_spn, "map")
                 print("ADSAS")
-    os.remove(map_file)
 
 
 if __name__ == "__main__":
