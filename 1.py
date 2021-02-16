@@ -97,30 +97,29 @@ def main():
                 pygame.quit()
                 exit()
             coords = [float(i) for i in spn[0].split(",")]
-            print(str(coords[0]))
             spn = (str(coords[0]) + "," + str(coords[1]), spn[1])
-            spn_list = list(map(float, spn[1].split(',')))
             if event.type == pygame.KEYDOWN:
+                spn_list = list(map(float, spn[1].split(',')))
                 coords = [float(i) for i in coords]
+                a = 0.15
                 if event.key == pygame.K_DOWN:
-                    coords[1] -= 0.001
+                    coords[1] -= spn_list[1] * a
                 elif event.key == pygame.K_UP:
-                    coords[1] += 0.001
+                    coords[1] += spn_list[1] * a
                 elif event.key == pygame.K_RIGHT:
-                    coords[0] += 0.001
+                    coords[0] += spn_list[0] * a
                 elif event.key == pygame.K_LEFT:
-                    coords[0] -= 0.001
+                    coords[0] -= spn_list[0] * a
                 elif event.key == pygame.K_q:
                     vid += 1
                     vid = vid % 3
-                coords = [str(i) for i in coords]
                 if event.key == pygame.K_PAGEUP:
                     spn_list[0] = spn_list[0] * 2
                     spn_list[1] = spn_list[1] * 2
                 elif event.key == pygame.K_PAGEDOWN:
                     spn_list[0] = spn_list[0] / 2
                     spn_list[1] = spn_list[1] / 2
-                spn = [spn[0], ','.join(list(map(str, spn_list)))]
+                spn = [','.join(list(map(str, coords))), ','.join(list(map(str, spn_list)))]
                 ll_spn = f"ll={coords[0]},{coords[1]}&spn={spn[1]}"
                 if vid == 0:
                     show_map(ll_spn, "map")
