@@ -1,3 +1,8 @@
+# Пользователь печатает в командной строке запрос,
+# а наша задача состоит в том, чтобы найти координаты запрошенного объекта
+# и показать его на карте, выбрав соответствующий масштаб и позицию карты
+
+import pygame
 import sys
 
 import pygame
@@ -96,11 +101,12 @@ def main():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
-            coords = [float(i) for i in spn[0].split(",")]
-            print(str(coords[0]))
-            spn = (str(coords[0]) + "," + str(coords[1]), spn[1])
-            spn_list = list(map(float, spn[1].split(',')))
             if event.type == pygame.KEYDOWN:
+                coords = [float(i) for i in spn[0].split(",")]
+                print(str(coords[0]))
+                spn = (str(coords[0]) + "," + str(coords[1]), spn[1])
+                spn_list = list(map(float, spn[1].split(',')))
+
                 coords = [float(i) for i in coords]
                 if event.key == pygame.K_DOWN:
                     coords[1] -= 0.001
@@ -113,13 +119,18 @@ def main():
                 elif event.key == pygame.K_q:
                     vid += 1
                     vid = vid % 3
-                coords = [str(i) for i in coords]
-                if event.key == pygame.K_PAGEUP:
+                elif event.key == pygame.K_f:
+                    ads = input()
+                    crds = geocode(ads)["Point"]["pos"]
+                    coords[0] = crds.split()[0]
+                    coords[1] = crds.split()[1]
+                elif event.key == pygame.K_PAGEUP:
                     spn_list[0] = spn_list[0] * 2
                     spn_list[1] = spn_list[1] * 2
                 elif event.key == pygame.K_PAGEDOWN:
                     spn_list[0] = spn_list[0] / 2
                     spn_list[1] = spn_list[1] / 2
+                coords = [str(i) for i in coords]
                 spn = [spn[0], ','.join(list(map(str, spn_list)))]
                 ll_spn = f"ll={coords[0]},{coords[1]}&spn={spn[1]}"
                 if vid == 0:
