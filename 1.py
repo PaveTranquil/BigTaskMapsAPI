@@ -9,7 +9,6 @@ API_KEY = '40d1649f-0493-4b70-98ba-98533de7710b'
 size = (600, 450)
 screen = pygame.display.set_mode(size)
 
-
 def geocode(address):
     geocoder_request = f"http://geocode-maps.yandex.ru/1.x/"
     geocoder_params = {
@@ -143,8 +142,10 @@ def main():
                 if metka:
                     pygame.draw.rect(screen, (255, 255, 255), (200, 0, 500, 30))
                     font = pygame.font.Font(None, 20)
-                    #print(geocode(metka))
-                    line = font.render("text", True, (0, 0, 0))
+
+                    texttext = geocode(",".join(metka))["metaDataProperty"]["GeocoderMetaData"]["text"]
+                    print(texttext)
+                    line = font.render(texttext, True, (0, 0, 0))
                     screen.blit(line, (200, 0))
                     pygame.display.flip()
 
