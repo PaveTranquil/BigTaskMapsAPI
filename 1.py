@@ -125,6 +125,8 @@ def main():
                 elif event.key == pygame.K_PAGEDOWN:
                     spn_list[0] = spn_list[0] / 2
                     spn_list[1] = spn_list[1] / 2
+                elif event.key == pygame.K_DELETE:
+                    metka = False
                 coords = [str(i) for i in coords]
                 spn = [','.join(list(map(str, coords))), ','.join(list(map(str, spn_list)))]
                 ll_spn = f"ll={coords[0]},{coords[1]}&spn={spn[1]}"
