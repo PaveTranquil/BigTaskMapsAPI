@@ -79,7 +79,10 @@ def show_map(ll_spn=None, map_type="map", add_params=None):
     screen.blit(pygame.transform.scale(pygame.image.load(map_file), size), (0, 0))
     pygame.display.flip()
 
+
 metka = False
+
+
 def main():
     global parametr
     toponym_to_find = " ".join(sys.argv[1:])
@@ -137,6 +140,14 @@ def main():
                     show_map(ll_spn, "sat", metka)
                 if vid == 2:
                     show_map(ll_spn, "skl", metka)
+                if metka:
+                    pygame.draw.rect(screen, (255, 255, 255), (200, 0, 500, 30))
+                    font = pygame.font.Font(None, 20)
+                    #print(geocode(metka))
+                    line = font.render("text", True, (0, 0, 0))
+                    screen.blit(line, (200, 0))
+                    pygame.display.flip()
+
 
 
 if __name__ == "__main__":
