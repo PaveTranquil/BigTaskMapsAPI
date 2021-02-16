@@ -62,7 +62,7 @@ def show_map(ll_spn=None, map_type="map", add_params=None):
         map_request = f"http://static-maps.yandex.ru/1.x/?l={map_type}"
 
     if add_params:
-        map_request += "&" + add_params
+        map_request += "&" + f"pt={add_params[0]},{add_params[1]},pm2dgl"
     response = requests.get(map_request)
 
     if not response:
@@ -79,7 +79,7 @@ def show_map(ll_spn=None, map_type="map", add_params=None):
     screen.blit(pygame.transform.scale(pygame.image.load(map_file), size), (0, 0))
     pygame.display.flip()
 
-
+metka = False
 def main():
     global parametr
     toponym_to_find = " ".join(sys.argv[1:])
@@ -120,6 +120,7 @@ def main():
                     crds = geocode(ads)["Point"]["pos"]
                     coords[0] = crds.split()[0]
                     coords[1] = crds.split()[1]
+                    metka = [str(i) for i in coords]
                 elif event.key == pygame.K_PAGEUP:
                     spn_list[0] = spn_list[0] * 2
                     spn_list[1] = spn_list[1] * 2
@@ -130,11 +131,11 @@ def main():
                 spn = [','.join(list(map(str, coords))), ','.join(list(map(str, spn_list)))]
                 ll_spn = f"ll={coords[0]},{coords[1]}&spn={spn[1]}"
                 if vid == 0:
-                    show_map(ll_spn, "map")
+                    show_map(ll_spn, "map", metka)
                 if vid == 1:
-                    show_map(ll_spn, "sat")
+                    show_map(ll_spn, "sat", metka)
                 if vid == 2:
-                    show_map(ll_spn, "skl")
+                    show_map(ll_spn, "skl", metka)
 
 
 if __name__ == "__main__":
