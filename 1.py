@@ -113,26 +113,26 @@ def main():
         ll_spn = f"ll={spn[0]}&spn={spn[1]}"
         print(ll_spn)
         show_map(ll_spn, "map")
+        coords = [float(i) for i in spn[0].split(",")]
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
             if event.type == pygame.KEYDOWN:
-                coords = [float(i) for i in spn[0].split(",")]
+                coords = [float(i) for i in coords]
                 print("CCCCCCCC", coords)
                 if event.key == pygame.K_DOWN:
-                    coords[0] -= 1
+                    coords[1] -= 0.001
                 elif event.key == pygame.K_UP:
-                    coords[0] += 1
+                    coords[1] += 0.001
                 elif event.key == pygame.K_RIGHT:
-                    coords[1] -= 1
+                    coords[0] += 0.001
                 elif event.key == pygame.K_LEFT:
-                    coords[1] += 1
+                    coords[0] -= 0.001
                 print("ггггггггг", coords)
-                coords = [str(i) for i in spn[0].split(",")]
-                spn = (coords[0] + "," + coords[1], spn[1])
-                ll_spn = f"ll={spn[0]}&spn={spn[1]}"
+                coords = [str(i) for i in coords]
+                ll_spn = f"ll={coords[0]},{coords[1]}&spn={spn[1]}"
                 show_map(ll_spn, "map")
                 print("ADSAS")
 
