@@ -106,6 +106,7 @@ def show_map(ll_spn=None, map_type="map", add_params=None):
 def main():
     global parametr
     toponym_to_find = " ".join(sys.argv[1:])
+    vid = 0
     if toponym_to_find:
         # Показываем карту с фиксированным масштабом.
         lat, lon = get_coordinates(toponym_to_find)
@@ -121,7 +122,6 @@ def main():
                 exit()
             if event.type == pygame.KEYDOWN:
                 coords = [float(i) for i in coords]
-                print("CCCCCCCC", coords)
                 if event.key == pygame.K_DOWN:
                     coords[1] -= 0.001
                 elif event.key == pygame.K_UP:
@@ -130,11 +130,17 @@ def main():
                     coords[0] += 0.001
                 elif event.key == pygame.K_LEFT:
                     coords[0] -= 0.001
-                print("ггггггггг", coords)
+                elif event.key == pygame.K_q:
+                    vid += 1
+                    vid = vid % 3
                 coords = [str(i) for i in coords]
                 ll_spn = f"ll={coords[0]},{coords[1]}&spn={spn[1]}"
-                show_map(ll_spn, "map")
-                print("ADSAS")
+                if vid == 0:
+                    show_map(ll_spn, "map")
+                if vid == 1:
+                    show_map(ll_spn, "sat")
+                if vid == 2:
+                    show_map(ll_spn, "skl")
 
 
 if __name__ == "__main__":
